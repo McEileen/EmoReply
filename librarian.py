@@ -1,9 +1,5 @@
 import re
 
-
-
-
-
 def get_sentences(text):
 	paragraphs = text.split('\n')
 	print(len(paragraphs))
@@ -36,15 +32,14 @@ def get_dialog(text):
 
 	return lines
 
+def get_search_terms_list(category_name):
+	filepath = 'response_categories/' + category_name + '.txt'
+	with open(filepath) as input_file:
+		return input_file.readlines()
+
+def any_search_term_in(line, search_terms):
 
 
-	# def inside_quotes(text):
-	# paragraphs = text.split('\n')
-	# snowball = ''
-	# for p in paragraphs:
-	#     in_quotes = " ".join(re.findall('"([^"]*)"', p))
-	#     snowball += "\n " + in_quotes
-	# return snowball
 
 if __name__ == '__main__':
 	with open('Perks.txt') as infile:
@@ -52,11 +47,6 @@ if __name__ == '__main__':
 
 	sents = get_sentences(text)
 	filtered = filter_sentences(sents)
-
-	#print(len(sents))
-	#print(len(filtered))
-
-	#print(filtered[200:300])
 
 	lines = get_dialog(text)
 	print(lines)
@@ -72,4 +62,7 @@ if __name__ == '__main__':
 
 	print(short_questions)
 
+	search_terms = get_search_terms_list()
+
+	greetings = [line for line in lines if any_search_term_in(line, search_terms)] 
 
