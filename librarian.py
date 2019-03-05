@@ -1,4 +1,6 @@
 import re
+import string
+import random
 
 def get_sentences(text):
 	paragraphs = text.split('\n')
@@ -35,9 +37,20 @@ def get_dialog(text):
 def get_search_terms_list(category_name):
 	filepath = 'response_categories/' + category_name + '.txt'
 	with open(filepath) as input_file:
-		return input_file.readlines()
+		return [line.lower().strip() for line in input_file.readlines()]
 
 def any_search_term_in(line, search_terms):
+	clean_line = remove_punctuation(line)
+	words = clean_line.split(' ')
+	print(words)
+	print(search_terms)
+	for word in words:
+		if word.lower() in search_terms:
+			return True
+	return False
+
+def remove_punctuation(line):
+	return line.translate(str.maketrans('','', string.punctuation))
 
 
 
@@ -62,7 +75,35 @@ if __name__ == '__main__':
 
 	print(short_questions)
 
-	search_terms = get_search_terms_list()
+	search_terms = get_search_terms_list('greetings')
 
-	greetings = [line for line in lines if any_search_term_in(line, search_terms)] 
+	greetings = [line for line in lines if any_search_term_in(line, search_terms)]
+
+	print(greetings)
+
+	while True:
+		prompt = input('[enter text]\n')
+		words = prompt.split(' ')
+
+		maximum_length = max([len(greetings) for greeting in greetings])
+		response = '...'
+		for i in range(len(words)):
+			for phrase_length in range(1, maximum_length):
+				phrase = " ".join(words[i:i+phrase_length])
+				#print(phrase)
+				if phrase.lower() in search_terms:
+					response = random.choice(greetings)
+					break
+		print(response)
+
+
+
+		"""
+		for word in words:
+			if word.lower() in search_terms:
+				print(random.choice(greetings))
+		"""
+
+
+
 
