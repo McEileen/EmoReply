@@ -1,3 +1,5 @@
+import re
+
 with open('Perks.txt') as infile:
     text = infile.read()
 
@@ -20,7 +22,22 @@ def get_sentences(text):
 def filter_sentences(sents):
 	return [s for s in sents if len(s) > 0 and s[0] == s[0].upper()]
 
+def return_dialog(text):
+	paragraphs = text.split('\n')
+	dialog_pieces = []	
+	
+	for paragraph in paragraphs:
+		dialog = " ".join(re.findall('"([^"]*)"', paragraph))
+		dialog_pieces 
 
+
+	# def inside_quotes(text):
+    # paragraphs = text.split('\n')
+    # snowball = ''
+    # for p in paragraphs:
+    #     in_quotes = " ".join(re.findall('"([^"]*)"', p))
+    #     snowball += "\n " + in_quotes
+    # return snowball
 
 
 sents = get_sentences(text)
