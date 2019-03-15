@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     button.addEventListener('click', function(event) {
         console.log('see button inside event', button)
-        console.log("CLICKED THE BUTTON!")
         console.log(inputField.value);
     });
 })
