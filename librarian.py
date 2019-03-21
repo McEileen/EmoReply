@@ -17,7 +17,7 @@ def clean(text):
 	return text.replace('”','"').replace('“','"')
 
 
-# returns the sentences from a list of sentencess that SEEM like good sentences
+# returns the sentences from a list of sentences that SEEM like good sentences
 #	current filters: must be uppercase
 def filter_sentences(sents):
 	return [s for s in sents if len(s) > 0 and s[0] == s[0].upper()]
