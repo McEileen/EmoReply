@@ -1,13 +1,24 @@
+const serverAddress = "https://localhost:8080"
+
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('what is document', document);
     const button = document.getElementById('submit');
-    console.log('see the button', button);
     const inputField = document.getElementById('inputField');
 
     button.addEventListener('click', function(event) {
-        console.log('see button inside event', button)
-        console.log("CLICKED THE BUTTON!")
-        console.log(inputField.value);
-        document.getElementById('outputField').innerText = inputField.value
+        var parameters = {
+            'input': inputField.value
+        }
+        $.ajax({
+            type: 'POST',
+            url: serverAddress + '/emoReplies',
+            data: parameters,
+            success: function(d) {
+                document.getElementById('outputField').innerText = 'hardcoded emoreply'
+                console.log(d);
+            },
+            error: function() {
+                console.log("error");
+            }
+        });
     });
 })
